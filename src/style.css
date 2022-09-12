@@ -42,3 +42,13 @@ p {
 	margin-block-start: 0.5em;
 	margin-block-end: 0.5em;
 }
+
+[contentEditable=true]:empty:focus:before{
+	content:attr(placeholder);
+	color:grey;
+	font-style:italic;
+}
+
+h1 {
+	font-weight: 500;
+}
