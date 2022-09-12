@@ -1,11 +1,11 @@
 <template>
-	<h2>Test</h2>
 	<div
 		v-for="(content, index) in contentTree"
 		:key="index"
 	>
 		<contenteditable
 			v-model="content.value"
+			:placeholder="content.placeholder"
 			:ref="`el${index}`"
 			:contenteditable="content.editable"
 			:tag="content.tag"
@@ -13,6 +13,7 @@
 			:noHtml="true"
 			@returned="enterPressed(index)"
 			@keypress="slashHandler($event, index)"
+			@keyup.esc="showTagsMenu = false"
 		/>
 	</div>
 	<div
@@ -21,7 +22,7 @@
 	>
 		<div
 			v-for="(option, index) in allowedTags"
-			class="opt"
+			class="option"
 			@click="changeTag(option)"
 		>
 			<div>{{ option.label }}</div>
@@ -43,15 +44,22 @@ export default {
 			allowedTags,
 			contentTree: [
 				{
+					tag: 'h1',
+					value: `Informe o título da página`,
+					placeholder: 'Enter page title',
+				},
+				{
 					tag: 'p',
 					value: `Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.`,
+					placeholder: 'type / for commands',
 				},
 				{
 					tag: 'p',
 					value: `Ut enim ad minima veniam, quis nostrum exercitationem ullam corporis suscipit laboriosam, nisi ut aliquid ex ea commodi consequatur? Quis autem vel eum iure reprehenderit qui in ea voluptate velit esse quam nihil molestiae consequatur, vel illum qui dolorem eum fugiat quo voluptas nulla pariatur?`,
+					placeholder: 'type / for commands',
 				},
 			],
-			contentTreeLength: 2,
+			contentTreeLength: 3,
 			tempIndex: 0,
 			showTagsMenu: false,
 		}
@@ -62,6 +70,7 @@ export default {
 			const newTag = {
 				tag: 'p',
 				value: '',
+				placeholder: 'type / for commands',
 			};
 
 			this.contentTree.splice(index + 1, 0, newTag);
@@ -87,6 +96,10 @@ export default {
 			this.contentTree[this.tempIndex].tag = option.tag;
 			this.contentTree[this.tempIndex].editable = option.editable;
 			this.contentTree[this.tempIndex].value = '';
+
+			this.contentTree[this.tempIndex].placeholder = allowedTags.find((item) => {
+				return item.tag === option.tag;
+			}).placeholder;
 
 			this.$nextTick(() => {
 				this.$refs[`el${this.tempIndex}`][0].$el.focus();
@@ -117,14 +130,14 @@ export default {
 		margin-top: -100px;
 	}
 
-	.opt {
+	.option {
 		margin-bottom: 8px;
 		padding: 4px;
 		border-radius: 4px;
 		cursor: pointer;
 	}
 
-	.opt:hover {
+	.option:hover {
 		background-color: rgb(233, 232, 238);
 	}
 </style>
