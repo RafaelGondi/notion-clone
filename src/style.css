@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+
 :root {
 	font-family: Inter, Avenir, Helvetica, Arial, sans-serif;
 	font-size: 16px;
@@ -15,6 +17,7 @@ a:hover {
 }
 
 body {
+	font-family: 'Inter', sans-serif;
 	margin: 0;
 	min-width: 320px;
 	min-height: 100vh;
@@ -26,12 +29,12 @@ h1 {
 }
 
 #app {
-	max-width: 650px;
+	max-width: 800px;
 	margin: 0 auto;
 	padding: 2rem;
 }
 
-p:focus-visible {
+p:focus-visible, h1:focus-visible, h2:focus-visible, h3:focus-visible {
 	outline: none;
 }
 
