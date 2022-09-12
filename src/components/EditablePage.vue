@@ -30,13 +30,17 @@
 </template>
  
 <script>
-import contenteditable from 'vue-contenteditable'; // Not needed it registered globally
+import contenteditable from 'vue-contenteditable';
+import allowedTags from '../utils/constants/allowedTags';
+
 export default {
 	components : {
 		contenteditable
 	},
+	
 	data() {
 		return {
+			allowedTags,
 			contentTree: [
 				{
 					tag: 'p',
@@ -48,52 +52,11 @@ export default {
 				},
 			],
 			contentTreeLength: 2,
-			allowedTags: [
-				{
-					tag: "h1",
-					label: "Heading 1",
-					editable: true,
-				},
-				{
-					tag: "h2",
-					label: "Heading 2",
-					editable: true,
-				},
-				{
-					tag: "h3",
-					label: "Heading 3",
-					editable: true,
-				},
-				{
-					tag: "p",
-					label: "Paragraph",
-					editable: true,
-				},
-				{
-					tag: "i",
-					label: "Italic",
-					editable: true,
-				},
-				{
-					tag: "strong",
-					label: "Bold",
-					editable: true,
-				},
-				{
-					tag: "blockquote",
-					label: "Quote",
-					editable: true,
-				},
-				{
-					tag: "hr",
-					label: "Divider",
-					editable: false,
-				}
-			],
 			tempIndex: 0,
 			showTagsMenu: false,
 		}
 	},
+
 	methods : {
 		enterPressed(index){
 			const newTag = {
@@ -148,6 +111,9 @@ export default {
 		background-color: rgb(255, 255, 255);
 		padding: 12px;
 		width: fit-content;
+		position: absolute;
+		margin-left: 20px;
+		margin-top: -100px;
 	}
 
 	.opt {
