@@ -117,7 +117,8 @@ export default {
 	}
 }
 </script>
-<style>
+<style lang="scss">
+	@import 'node_modules/@sysvale/cuida/dist/tokens.scss';
 	.optionsMenu {
 		box-shadow: rgb(0 0 0 / 5%) 0px 0px 10px, rgb(0 0 0 / 5%) 0px 5px 10px, rgb(0 0 0 / 5%) 0px 2px 4px, rgb(0 0 0 / 5%) 0px 10px 20px;
 		border-radius: 12px;
@@ -139,5 +140,15 @@ export default {
 
 	.option:hover {
 		background-color: rgb(233, 232, 238);
+	}
+
+	body {
+		color: $n-900;
+	}
+
+	[contentEditable=true]:empty:focus:before{
+		content:attr(placeholder);
+		color: $n-200;
+		font-style:italic;
 	}
 </style>
