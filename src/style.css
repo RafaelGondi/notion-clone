@@ -34,7 +34,7 @@ h1 {
 	padding: 2rem;
 }
 
-p:focus-visible, h1:focus-visible, h2:focus-visible, h3:focus-visible {
+*:focus-visible {
 	outline: none;
 }
 
