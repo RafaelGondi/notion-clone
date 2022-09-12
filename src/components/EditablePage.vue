@@ -86,6 +86,7 @@ export default {
 		changeTag(option) {
 			this.contentTree[this.tempIndex].tag = option.tag;
 			this.contentTree[this.tempIndex].editable = option.editable;
+			this.contentTree[this.tempIndex].value = '';
 
 			this.$nextTick(() => {
 				this.$refs[`el${this.tempIndex}`][0].$el.focus();
