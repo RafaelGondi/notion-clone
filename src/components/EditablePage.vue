@@ -10,7 +10,7 @@
 			:tag="content.tag"
 			:noNl="true"
 			:noHtml="true"
-			@returned="enterPressed"
+			@returned="enterPressed(index)"
 		/>
 	</div>
 </template>
@@ -46,16 +46,18 @@ export default {
 		}
 	},
 	methods : {
-		enterPressed(){
+		enterPressed(index){
+			console.log('🚀 -> file: EditablePage.vue -> line 50 -> index', index);
 			const newTag = {
 				tag: 'p',
 				value: '',
 			};
 
-			this.contentTree.push(newTag);
+			this.contentTree.splice(index + 1, 0, newTag);
+
 			this.$nextTick(() => {
 				this.contentTreeLength++;
-				this.$refs[`el${this.contentTreeLength}`][0].$el.focus();
+				this.$refs[`el${index + 1}`][0].$el.focus();
 			});
 		},
 	}
