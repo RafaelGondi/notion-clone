@@ -1,6 +1,6 @@
 <template>
 	<div
-		v-for="(content, index) in contentTree"
+		v-for="(content, index) in fileStore.files[0].content"
 		:key="index"
 	>
 		<contenteditable
@@ -33,33 +33,24 @@
 <script>
 import contenteditable from 'vue-contenteditable';
 import allowedTags from '../utils/constants/allowedTags';
+import { useFileStore } from '../store/FileStore';
 
 export default {
 	components : {
 		contenteditable
 	},
+
+	setup () {
+		const fileStore = useFileStore();
+
+		return {
+			fileStore,
+		}
+	},
 	
 	data() {
 		return {
 			allowedTags,
-			contentTree: [
-				{
-					tag: 'h1',
-					value: `Informe o título da página`,
-					placeholder: 'Enter page title',
-				},
-				{
-					tag: 'p',
-					value: `Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.`,
-					placeholder: 'type / for commands',
-				},
-				{
-					tag: 'p',
-					value: `Ut enim ad minima veniam, quis nostrum exercitationem ullam corporis suscipit laboriosam, nisi ut aliquid ex ea commodi consequatur? Quis autem vel eum iure reprehenderit qui in ea voluptate velit esse quam nihil molestiae consequatur, vel illum qui dolorem eum fugiat quo voluptas nulla pariatur?`,
-					placeholder: 'type / for commands',
-				},
-			],
-			contentTreeLength: 3,
 			tempIndex: 0,
 			showTagsMenu: false,
 		}
@@ -73,10 +64,9 @@ export default {
 				placeholder: 'type / for commands',
 			};
 
-			this.contentTree.splice(index + 1, 0, newTag);
+			this.fileStore.addContent(newTag, index + 1);
 
 			this.$nextTick(() => {
-				this.contentTreeLength++;
 				this.$refs[`el${index + 1}`][0].$el.focus();
 			});
 		},
@@ -93,25 +83,25 @@ export default {
 		},
 
 		changeTag(option) {
-			this.contentTree[this.tempIndex].tag = option.tag;
-			this.contentTree[this.tempIndex].editable = option.editable;
-			this.contentTree[this.tempIndex].value = '';
-
-			this.contentTree[this.tempIndex].placeholder = allowedTags.find((item) => {
-				return item.tag === option.tag;
-			}).placeholder;
-
-			this.$nextTick(() => {
-				this.$refs[`el${this.tempIndex}`][0].$el.focus();
-			});
+			const tagData = {
+				tag: option.tag,
+				editable: option.editable,
+				value: option.value,
+				placeholder: allowedTags.find((item) => item.tag === option.tag).placeholder,
+			};
 
 			const newTag = {
 				tag: 'p',
 				value: '',
 			};
 
-			this.contentTree.splice(this.tempIndex + 1, 0, newTag);
+			this.fileStore.changeTag(tagData, this.tempIndex);
 
+			this.$nextTick(() => {
+				this.$refs[`el${this.tempIndex}`][0].$el.focus();
+			});
+
+			this.fileStore.addContent(newTag, this.tempIndex + 1);
 			this.showTagsMenu = false;
 		},
 	}
@@ -150,5 +140,9 @@ export default {
 		content:attr(placeholder);
 		color: $n-200;
 		font-style:italic;
+	}
+
+	p {
+		color: $n-800;
 	}
 </style>

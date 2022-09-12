@@ -3,15 +3,20 @@
 		class="side-menu"
 	>
 		<div class="side-menu-header">Notion Clone</div>
+		<div><div class="side-menu-header">Logged in as {{ fileStore.userName }}</div></div>
 	</div>
 </template>
 
 <script>
+import { useFileStore } from '../store/FileStore';
+
 export default {
 	setup () {
-		
+		const fileStore = useFileStore();
 
-		return {}
+		return {
+			fileStore,
+		}
 	}
 }
 </script>
@@ -20,12 +25,13 @@ export default {
 	@import 'node_modules/@sysvale/cuida/dist/tokens.scss';
 	.side-menu {
 		height: 100%;
-		width: 300px;
+		width: 250px;
 		background-color: $al-50;
 		position: absolute;
 		top: 0;
 		left: 0;
 		display: flex;
+		flex-direction: column;
 	}
 
 	.side-menu-header {

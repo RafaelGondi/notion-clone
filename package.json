@@ -10,6 +10,7 @@
   },
   "dependencies": {
     "@sysvale/cuida": "^3.0.0-alpha",
+    "pinia": "^2.0.22",
     "vue": "^3.2.37",
     "vue-contenteditable": "^4.0.4"
   },
