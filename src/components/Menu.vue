@@ -3,7 +3,19 @@
 		class="side-menu"
 	>
 		<div class="side-menu-header">Notion Clone</div>
-		<div><div class="side-menu-header">Logged in as {{ fileStore.userName }}</div></div>
+
+		<div class="filesContainer">
+			<div
+				v-for="(files, index) in fileStore.files"
+			>
+				<p
+					class="file"
+					@click="changeFile(index)"
+				>
+					{{ files.metadata.name }}
+				</p>
+			</div>
+		</div>
 	</div>
 </template>
 
@@ -17,7 +29,13 @@ export default {
 		return {
 			fileStore,
 		}
-	}
+	},
+
+	methods: {
+		changeFile(index) {
+			this.fileStore.changeFile(index);
+		}
+	},
 }
 </script>
 
@@ -38,5 +56,14 @@ export default {
 		margin: mTRBL(6, 0, 0, 6);
 		@include heading-3;
 		font-weight: $font-weight-semibold;
+	}
+
+	.filesContainer {
+		margin: mTRBL(6, 0, 0, 6);
+	}
+
+	.file {
+		padding: py(3);
+		cursor: pointer;
 	}
 </style>

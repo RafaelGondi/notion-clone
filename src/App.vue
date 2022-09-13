@@ -4,8 +4,8 @@ import Menu from './components/Menu.vue';
 </script>
 
 <template>
-  <EditablePage/>
-  <Menu/>
+	<EditablePage/>
+	<Menu/>
 </template>
 
 <style scoped>

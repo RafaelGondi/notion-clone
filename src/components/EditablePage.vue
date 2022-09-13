@@ -1,12 +1,12 @@
 <template>
 	<div
-		v-for="(content, index) in fileStore.files[0].content"
+		v-for="(content, index) in fileStore.file.content"
 		:key="index"
 	>
 		<contenteditable
 			v-model="content.value"
 			:placeholder="content.placeholder"
-			:ref="`el${index}`"
+			:ref="`${fileStore.file.metadata.dom_id}-${index}`"
 			:contenteditable="content.editable"
 			:tag="content.tag"
 			:noNl="true"
@@ -67,12 +67,12 @@ export default {
 			this.fileStore.addContent(newTag, index + 1);
 
 			this.$nextTick(() => {
-				this.$refs[`el${index + 1}`][0].$el.focus();
+				this.$refs[`${this.fileStore.file.metadata.dom_id}-${index + 1}`][0].$el.focus();
 			});
 		},
 
 		slashHandler(ev, index) {
-			const isTagEmpty = this.$refs[`el${index}`][0].$el.innerText.length < 1;
+			const isTagEmpty = this.$refs[`${this.fileStore.file.metadata.dom_id}-${index}`][0].$el.innerText.length < 1;
 
 			if (ev.key !== '/' || !isTagEmpty) {
 				return
@@ -98,7 +98,7 @@ export default {
 			this.fileStore.changeTag(tagData, this.tempIndex);
 
 			this.$nextTick(() => {
-				this.$refs[`el${this.tempIndex}`][0].$el.focus();
+				this.$refs[`${this.fileStore.file.metadata.dom_id}-${this.tempIndex}`][0].$el.focus();
 			});
 
 			this.fileStore.addContent(newTag, this.tempIndex + 1);
