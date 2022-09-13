@@ -113,16 +113,40 @@ export const useFileStore = defineStore('FileStore', {
 
 	actions: {
 		addContent(tagData, position) {
-			this._files[this.currentFile].content.splice(position, 0, tagData);
+			this._files[this._currentFile].content.splice(position, 0, tagData);
 		},
 
 		changeTag(tagData, tagIndex) {
-			this._files[this.currentFile].content[tagIndex] = tagData;
+			this._files[this._currentFile].content[tagIndex] = tagData;
 		},
 
 		changeFile(currentFile) {
 			
 			this._currentFile = currentFile;
+		},
+
+		newPage() {
+			const boilerplateFileData = {
+				metadata: {
+					name: 'Untitled',
+					author: 'Mary Jane',
+					created_at: '2020-09-13T00:00:00Z',
+					dom_id: 'pgtk',
+				},
+				content: [
+					{
+						tag: 'h1',
+						value: `Untitled`,
+					},
+					{
+						tag: 'p',
+						value: '',
+					},
+				],
+			};
+
+			this._files.push(boilerplateFileData);
+			this._currentFile = this.numbersOfFiles - 1;
 		},
 	}
 });

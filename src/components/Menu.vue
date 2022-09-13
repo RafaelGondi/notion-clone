@@ -21,7 +21,10 @@
 			</div>
 		</div>
 
-		<div class="add-page-btn">
+		<div
+			class="add-page-btn"
+			@click="handleNewPageCreation"
+		>
 			<p>+ New page</p>
 		</div>
 	</div>
@@ -42,7 +45,11 @@ export default {
 	methods: {
 		changeFile(index) {
 			this.fileStore.changeFile(index);
-		}
+		},
+
+		handleNewPageCreation() {
+			this.fileStore.newPage();
+		},
 	},
 }
 </script>
