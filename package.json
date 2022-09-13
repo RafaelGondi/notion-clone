@@ -1,22 +1,21 @@
 {
-  "name": "notion-clone",
-  "private": true,
-  "version": "0.0.0",
-  "type": "module",
-  "scripts": {
-    "dev": "vite",
-    "build": "vite build",
-    "preview": "vite preview"
-  },
-  "dependencies": {
-    "@sysvale/cuida": "^3.0.0-alpha",
-    "pinia": "^2.0.22",
-    "vue": "^3.2.37",
-    "vue-contenteditable": "^4.0.4"
-  },
-  "devDependencies": {
-    "@vitejs/plugin-vue": "^3.1.0",
-    "sass": "^1.54.9",
-    "vite": "^3.1.0"
-  }
+	"name": "notion-clone",
+	"private": true,
+	"version": "0.0.0",
+	"type": "module",
+	"scripts": {
+		"dev": "vite",
+		"build": "vite build",
+		"preview": "vite preview"
+	},
+	"dependencies": {
+		"@sysvale/cuida": "^3.0.0-alpha",
+		"pinia": "^2.0.22",
+		"vue": "^3.2.37"
+	},
+	"devDependencies": {
+		"@vitejs/plugin-vue": "^3.1.0",
+		"sass": "^1.54.9",
+		"vite": "^3.1.0"
+	}
 }
