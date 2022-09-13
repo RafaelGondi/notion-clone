@@ -7,9 +7,11 @@
 		<div class="filesContainer">
 			<div
 				v-for="(files, index) in fileStore.files"
+				class="fileNameContainer"
+				:class="index === fileStore.currentFile ? 'active-option' : ''"
 			>
 				<p
-					class="file"
+					class="fileName"
 					@click="changeFile(index)"
 				>
 					{{ files.metadata.name }}
@@ -44,7 +46,7 @@ export default {
 	.side-menu {
 		height: 100%;
 		width: 250px;
-		background-color: $al-50;
+		background-color: $bn-50;
 		position: absolute;
 		top: 0;
 		left: 0;
@@ -58,12 +60,17 @@ export default {
 		font-weight: $font-weight-semibold;
 	}
 
-	.filesContainer {
+	.fileName {
 		margin: mTRBL(6, 0, 0, 6);
-	}
-
-	.file {
 		padding: py(3);
 		cursor: pointer;
+	}
+	
+	.fileNameContainer:hover {
+		background-color: $bn-100;
+	}
+
+	.active-option {
+		background-color: $bn-200;
 	}
 </style>
