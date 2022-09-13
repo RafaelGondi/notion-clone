@@ -1,32 +1,34 @@
 <template>
 	<div class="canvas-container">
-		<div
-			v-if="showTagsMenu"
-			class="optionsMenu"
-		>
+		<div class="text-centralizer">
 			<div
-				v-for="(option, index) in allowedTags"
-				class="option"
-				@click="changeTag(option)"
+				v-if="showTagsMenu"
+				class="optionsMenu"
 			>
-				<div>{{ option.label }}</div>
+				<div
+					v-for="(option, index) in allowedTags"
+					class="option"
+					@click="changeTag(option)"
+				>
+					<div>{{ option.label }}</div>
+				</div>
 			</div>
-		</div>
-		<div
-			v-for="(content, index) in fileStore.file.content"
-			:key="index"
-		>
-			<component
-				contenteditable="true"
-				:placeholder="content.placeholder"
-				:ref="`${fileStore.file.metadata.dom_id}-${index}`"
-				:is="content.tag"
-				@keyup.enter="enterPressed($event, index)"
-				@keypress="slashHandler($event, index)"
-				@keyup.esc="showTagsMenu = false"
+			<div
+				v-for="(content, index) in fileStore.file.content"
+				:key="index"
 			>
-				{{ content.value }}
-			</component>
+				<component
+					contenteditable="true"
+					:placeholder="content.placeholder"
+					:ref="`${fileStore.file.metadata.dom_id}-${index}`"
+					:is="content.tag"
+					@keyup.enter="enterPressed($event, index)"
+					@keypress="slashHandler($event, index)"
+					@keyup.esc="showTagsMenu = false"
+				>
+					{{ content.value }}
+				</component>
+			</div>
 		</div>
 	</div>
 </template>
@@ -145,9 +147,14 @@ export default {
 		color: $n-800;
 	}
 
-	.canvas-container {
+	.text-centralizer {
 		margin: auto;
 		margin-top: 20px !important;
 		max-width: 800px;
+	}
+	
+	.canvas-container {
+		height: 100vh;
+		overflow-y: scroll;
 	}
 </style>
